@@ -2,7 +2,6 @@
 
 import CodeMirror from 'codemirror'
 import * as Y from 'yjs'
-import { WebsocketProvider } from 'y-websocket'
 import { CodeMirrorBinding } from './js/y-codemirror_binding'  
 import { UserCursor } from '../y-client/src/utils/cursor/userCursor_class'
 import 'codemirror/mode/htmlmixed/htmlmixed.js'
@@ -80,6 +79,16 @@ window.addEventListener('load', () => {
         if (realtime) {
           let binding = this._createBinding(doc_type, editor, provider)
           // this.adapterDB(id, binding.awareness.doc);
+          
+          CoCreate.getDocument({
+            collection: collection,
+            document_id: document_id,
+            metadata: {
+      		    type: 'crdt'
+      		  }
+          })
+          
+          
           new UserCursor(provider);
           
         } else {
@@ -91,30 +100,76 @@ window.addEventListener('load', () => {
       }
     }
     
-    _init(){
-      var _this = this;
-      this.elements = /** @type {any} */ (document.querySelectorAll('.codemirror'))
+    init(container) {
       registerModuleSelector('div.codemirror')
-      this.elements.forEach(function(element,index){
+      this._init(container);
+      this.initSocketEvent();
+    }
+    
+    _init(container){
+      const _this = this;
+      
+      const mainContainer = container || document;
+      let elements = mainContainer.querySelectorAll('.codemirror')
+      
+      if (elements.length == 0 && mainContainer.classList.contains('codemirror')) {
+        elements = [mainContainer];
+      }
+
+      elements.forEach(function(element,index){
+        if (CoCreateUtils) {
+          if (CoCreateUtils.getInitialized(element)) {
+      			return;
+      		}
+        }
         
         try{  
           
-          /**
-          * Creando la instancia Codemirror
-          */
           let editor = _this._createCodeMirror(element);
           
           _this._initYSocket(element, editor, true)
           _this.initEvent(element, editor)
           
+          if (CoCreateUtils) {
+            CoCreateUtils.setInitialized(element)
+          }
+          _this.elements.push(element)
+          
         }catch(error) {
           
           console.error(error);    
           return false
-          
+        }
+      });//end forEach
+      
+    }
+    
+    initSocketEvent() {
+      const self = this;
+      CoCreateSocket.listen('getDocument', function(data) {
+        if (!data.metadata || data.metadata.type != "crdt") {
+          return;
         }
         
-      });//end forEach
+        self.elements.forEach((mirror) => {
+          const collection = mirror.getAttribute('data-collection')
+    			const id = mirror.getAttribute('data-document_id')
+    			const name = mirror.getAttribute('name')
+    			if (mirror.crudSetted === true) {
+            return;
+          }
+    			if (data['collection'] == collection && data['document_id'] == id && (name in data.data)) {
+    			 // _this.sendChangeData(input, data['data'][name], 0, data['data'][name].length, false);
+    			  CoCreate.replaceDataCrdt({
+    			    collection: collection,
+    			    document_id: id,
+    			    name: name,
+    			    value: data['data'][name],
+    			  })
+            mirror.crudSetted = true;
+    			}
+        });
+      });
     }
     
     initEvent(element, editor) {
@@ -215,9 +270,12 @@ window.addEventListener('load', () => {
   /**
   * Initialization all OBJS with class .codemirror
   */
-  obj_cocreatecodemirror._init()
+  obj_cocreatecodemirror.init()
 
   // @ts-ignore
-  window.codemirror = { obj_cocreatecodemirror }
+  window.CoCreateCodemirror = obj_cocreatecodemirror
   
+  //. register init function
+  CoCreateInit.registerModules('CoCreateCodemirror', CoCreateCodemirror, CoCreateCodemirror._init);
+
 });//end window LOAD

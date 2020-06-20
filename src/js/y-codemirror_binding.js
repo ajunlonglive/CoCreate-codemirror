@@ -21,6 +21,7 @@ const typeObserver = (binding, event) => {
         if (!readValue) {
           return;
         }
+        element.crudSetted = true;
         cm.operation(() => {
           const delta = event.delta
           let index = 0
