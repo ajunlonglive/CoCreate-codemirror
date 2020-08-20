@@ -85,7 +85,6 @@ const targetObserver = (binding, change) => {
   })
 }
 
-/** comment by jin (2020-08-11) **/
 // const createRemoteCaret = (username, color) => {
 //   if(debug)
 //     console.log(" Create caret")
@@ -159,7 +158,6 @@ const updateRemoteSelection = (y, cm, type, cursors, clientId, awareness) => {
   }
 }
 
-/** comment by jin (2020-08-11) **/
 // const codemirrorCursorActivity = (y, cm, type, awareness) => {
 //   if (!cm.hasFocus()) {
 //     return

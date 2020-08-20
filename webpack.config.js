@@ -4,11 +4,11 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    'CoCreate-codemirror': './codemirror_class.js',
+    'CoCreate-codemirror': './src/codemirror_class.js',
   },
   output: {
     globalObject: 'self',
-    path: path.resolve(__dirname, '../dist/'),
+    path: path.resolve(__dirname, './dist/'),
     //filename: '[name].bundle.js',
     //filename: 'CoCreate-codemirror.js',
     filename: '[name].js',
