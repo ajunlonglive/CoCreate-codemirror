@@ -158,73 +158,73 @@ const updateRemoteSelection = (y, cm, type, cursors, clientId, awareness) => {
   }
 }
 
-// const codemirrorCursorActivity = (y, cm, type, awareness) => {
-//   if (!cm.hasFocus()) {
-//     return
-//   }
-//   if(debug)
-//     console.log("codemirrorCursorActivity start ",cm.indexFromPos(cm.getCursor('anchor'))," end ",cm.indexFromPos(cm.getCursor('head')))
-//   const newAnchor = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('anchor')))
-//   const newHead = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('head')))
-//   const aw = awareness.getLocalState()
-//   let currentAnchor = null
-//   let currentHead = null
-//   if (aw.cursor != null) {
-//     currentAnchor = aw.cursor.anchor;// Y.createAbsolutePositionFromRelativePosition(JSON.parse(aw.cursor.anchor), y)
-//     currentHead = aw.cursor.head; // Y.createAbsolutePositionFromRelativePosition(JSON.parse(aw.cursor.head), y)
-//   }
-//   if (aw.cursor == null || !Y.compareRelativePositions(currentAnchor, newAnchor) || !Y.compareRelativePositions(currentHead, newHead)) {
-//     awareness.setLocalStateField('cursor', {
-//       anchor: newAnchor,
-//       head: newHead
-//     })
-//     if(debug)
-//       console.log("Send cursor  from codemirrorCursorActivity  ",{
-//           anchor: newAnchor,
-//           head: newHead
-//         })  
-//   }else {
-//     let start = cm.indexFromPos(cm.getCursor('anchor'));
-//     let end = cm.indexFromPos(cm.getCursor('head'));
-//     console.log("Else codemirrorCursorActivity",start,end)  
-    
-//     if(start == end){
-//         const newAnchor = Y.createRelativePositionFromTypeIndex(type, start);
-//         const newHead = Y.createRelativePositionFromTypeIndex(type, end);
-//         awareness.setLocalStateField('cursor', {
-//           anchor: newAnchor,
-//           head: newHead
-//         });
-//         if(debug)
-//           console.log("SEND Postion targetObserver  ",(start+end)) 
-//       }
-      
-//   }
-  
-//   //console.log('---------------------cm----------------------')
-//   //console.log(currentAnchor, currentHead, newAnchor, newHead);
-// }
-
 const codemirrorCursorActivity = (y, cm, type, awareness) => {
-  const aw = awareness.getLocalState()
-  if (!cm.hasFocus() || aw == null || !cm.display.wrapper.ownerDocument.hasFocus()) {
+  if (!cm.hasFocus()) {
     return
   }
+  if(debug)
+    console.log("codemirrorCursorActivity start ",cm.indexFromPos(cm.getCursor('anchor'))," end ",cm.indexFromPos(cm.getCursor('head')))
   const newAnchor = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('anchor')))
   const newHead = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('head')))
+  const aw = awareness.getLocalState()
   let currentAnchor = null
   let currentHead = null
   if (aw.cursor != null) {
-    currentAnchor = Y.createRelativePositionFromJSON(JSON.parse(aw.cursor.anchor))
-    currentHead = Y.createRelativePositionFromJSON(JSON.parse(aw.cursor.head))
+    currentAnchor = aw.cursor.anchor;// Y.createAbsolutePositionFromRelativePosition(JSON.parse(aw.cursor.anchor), y)
+    currentHead = aw.cursor.head; // Y.createAbsolutePositionFromRelativePosition(JSON.parse(aw.cursor.head), y)
   }
   if (aw.cursor == null || !Y.compareRelativePositions(currentAnchor, newAnchor) || !Y.compareRelativePositions(currentHead, newHead)) {
     awareness.setLocalStateField('cursor', {
-      anchor: JSON.stringify(newAnchor),
-      head: JSON.stringify(newHead)
+      anchor: newAnchor,
+      head: newHead
     })
+    if(debug)
+      console.log("Send cursor  from codemirrorCursorActivity  ",{
+          anchor: newAnchor,
+          head: newHead
+        })  
+  }else {
+    let start = cm.indexFromPos(cm.getCursor('anchor'));
+    let end = cm.indexFromPos(cm.getCursor('head'));
+    console.log("Else codemirrorCursorActivity",start,end)  
+    
+    if(start == end){
+        const newAnchor = Y.createRelativePositionFromTypeIndex(type, start);
+        const newHead = Y.createRelativePositionFromTypeIndex(type, end);
+        awareness.setLocalStateField('cursor', {
+          anchor: newAnchor,
+          head: newHead
+        });
+        if(debug)
+          console.log("SEND Postion targetObserver  ",(start+end)) 
+      }
+      
   }
+  
+  //console.log('---------------------cm----------------------')
+  //console.log(currentAnchor, currentHead, newAnchor, newHead);
 }
+
+// const codemirrorCursorActivity = (y, cm, type, awareness) => {
+//   const aw = awareness.getLocalState()
+//   if (!cm.hasFocus() || aw == null || !cm.display.wrapper.ownerDocument.hasFocus()) {
+//     return
+//   }
+//   const newAnchor = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('anchor')))
+//   const newHead = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('head')))
+//   let currentAnchor = null
+//   let currentHead = null
+//   if (aw.cursor != null) {
+//     currentAnchor = Y.createRelativePositionFromJSON(JSON.parse(aw.cursor.anchor))
+//     currentHead = Y.createRelativePositionFromJSON(JSON.parse(aw.cursor.head))
+//   }
+//   if (aw.cursor == null || !Y.compareRelativePositions(currentAnchor, newAnchor) || !Y.compareRelativePositions(currentHead, newHead)) {
+//     awareness.setLocalStateField('cursor', {
+//       anchor: JSON.stringify(newAnchor),
+//       head: JSON.stringify(newHead)
+//     })
+//   }
+// }
 
 const createRemoteCaret = (username, color) => {
   const caret = document.createElement('span')

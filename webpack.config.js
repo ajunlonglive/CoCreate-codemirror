@@ -5,6 +5,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     'CoCreate-codemirror': './src/codemirror_class.js',
+    // 'codemirror.bundle': './src/codemirror.js',
   },
   output: {
     globalObject: 'self',

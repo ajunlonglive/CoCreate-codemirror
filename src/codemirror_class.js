@@ -2,8 +2,8 @@
 
 import CodeMirror from 'codemirror'
 import * as Y from 'yjs'
-import { CodeMirrorBinding } from './js/y-codemirror_binding'  
-import { UserCursor } from '../../../CoCreate-components/CoCreate-y/y-client/src/utils/cursor/userCursor_class'
+import { CodeMirrorBinding } from './js/y-codemirror'  
+import { UserCursor } from '../../../CoCreate-components/CoCreate-crdt/src/utils/cursor/userCursor_class'
 import 'codemirror/mode/htmlmixed/htmlmixed.js'
 //Floding CODE
 import 'codemirror/addon/fold/foldcode.js'
@@ -57,6 +57,8 @@ window.addEventListener('load', () => {
     }
     
     _createBinding(type_element, editor, provider){
+      console.log(provider)
+      
         let binding = new CodeMirrorBinding(type_element, editor, provider.awareness)
         this.bindings.push(binding);
         return binding; 
@@ -73,12 +75,9 @@ window.addEventListener('load', () => {
         CoCreateCrdt.createDoc(id, element);
         
         let provider = CoCreateCrdt.getProvider(id)
-        
-        
-        console.log('++++++++++++++++++++++++++++++++++++++++++++')
-        console.log(provider)
-        
+        console.log(" Provider ",provider)
         let doc_type = CoCreateCrdt.getType(id)
+        
         let readValue = element.getAttribute('data-read_value') != "false";
         
         if (realtime) {
