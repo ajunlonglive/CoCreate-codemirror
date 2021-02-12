@@ -278,6 +278,7 @@ const updateRemoteSelection = (y, cm, type, cursors, clientId, awareness) => {
       from = anchorpos
       to = headpos
     }
+    if(debug)
     console.log(" From ",from," to ",to)
     //console.log("awareness ",awareness)
     const caretEl = createRemoteCaret(user.name, user.color)
@@ -321,9 +322,11 @@ const codemirrorCursorActivity = (y, cm, type, awareness) => {
   if (!cm.hasFocus()) {
     return
   }
-  if(debug)
+  if(debug){
     console.log("codemirrorCursorActivity start ",cm.indexFromPos(cm.getCursor('anchor'))," end ",cm.indexFromPos(cm.getCursor('head')))
     console.log(" Type codemirror ",type)
+    
+  }
   const newAnchor = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('anchor')))
   const newHead = Y.createRelativePositionFromTypeIndex(type, cm.indexFromPos(cm.getCursor('head')))
   const aw = awareness.getLocalState()
@@ -346,6 +349,7 @@ const codemirrorCursorActivity = (y, cm, type, awareness) => {
   }else {
     let start = cm.indexFromPos(cm.getCursor('anchor'));
     let end = cm.indexFromPos(cm.getCursor('head'));
+    if(debug)
     console.log("Else codemirrorCursorActivity",start,end)  
     
     if(start == end){
@@ -383,7 +387,7 @@ export class CodemirrorBinding {
    * @param {import('codemirror').Editor} codeMirror
    * @param {any} [awareness]
    */
-  constructor (textType, codeMirror, awareness) {
+  constructor (textType, codeMirror, awareness,realtime=true) {
     const doc = textType.doc
     const cmDoc = codeMirror.getDoc()
     this.doc = doc
@@ -394,7 +398,8 @@ export class CodemirrorBinding {
     // this.undoManager = new Y.UndoManager(textType, { trackedOrigins: new Set([this]) })
     this._mux = createMutex()
     // set initial value
-    cmDoc.setValue(textType.toString())
+    console.log("---------------------",textType.toString())
+    //cmDoc.setValue(textType.toString())
     // observe type and target
     this._typeObserver = event => typeObserver(this, event)
     this._targetObserver = (instance, changes) => {
@@ -437,7 +442,8 @@ export class CodemirrorBinding {
 
     textType.observe(this._typeObserver)
     // @ts-ignore
-    codeMirror.on('changes', this._targetObserver)
+    if(realtime)
+      codeMirror.on('changes', this._targetObserver)
     if (awareness) {
       codeMirror.on('swapDoc', this._blurListeer)
       awareness.on('change', this._awarenessListener)
@@ -466,5 +472,7 @@ export class CodemirrorBinding {
     // this.undoManager.destroy()
   }
 }
+
+
 
 export const CodeMirrorBinding = CodemirrorBinding

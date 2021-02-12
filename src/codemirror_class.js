@@ -56,10 +56,10 @@ window.addEventListener('load', () => {
       return editor;
     }
     
-    _createBinding(type_element, editor, provider){
+    _createBinding(type_element, editor, provider , realtime = true){
       console.log(provider)
       
-        let binding = new CodeMirrorBinding(type_element, editor, provider.awareness)
+        let binding = new CodeMirrorBinding(type_element, editor, provider.awareness ,realtime)
         this.bindings.push(binding);
         return binding; 
     }
@@ -71,20 +71,22 @@ window.addEventListener('load', () => {
       const realtime = element.getAttribute('data-realtime') != "false";
       
       if (collection && name && document_id) {
-        const id = CoCreateYSocket.generateID(config.organization_Id, collection, document_id, name);
-        CoCreateCrdt.createDoc(id, element);
+        const id = CoCreate.crdt.generateID(config.organization_Id, collection, document_id, name);
+        CoCreate.crdt.createDoc(id, element);
         
-        let provider = CoCreateCrdt.getProvider(id)
+        let provider = CoCreate.crdt.getProvider(id)
         console.log(" Provider ",provider)
-        let doc_type = CoCreateCrdt.getType(id)
+        let doc_type = CoCreate.crdt.getType(id)
         
         let readValue = element.getAttribute('data-read_value') != "false";
         
-        if (realtime) {
+        
+        let binding = this._createBinding(doc_type, editor, provider,realtime)
+        /*if (realtime) {
           let binding = this._createBinding(doc_type, editor, provider)
           // this.adapterDB(id, binding.awareness.doc);
           
-          // CoCreate.readDocument({
+          // CoCreate.crud.readDocument({
           //   collection: collection,
           //   document_id: document_id,
           //   metadata: {
@@ -99,18 +101,20 @@ window.addEventListener('load', () => {
           if (isInit) {
             const old_string = doc_type.toString()
             editor.setValue(old_string);
+            if(!old_string)
+               
+            //cmDoc.setValue(textType.toString())
           }
-        }
+        }*/
       }
     }
     
     init(container) {
-      registerModuleSelector('div.codemirror')
-      this._init(container);
+      this.initElement(container);
       this.initSocketEvent();
     }
     
-    _init(container){
+    initElement(container){
       const _this = this;
       
       const mainContainer = container || document;
@@ -120,9 +124,13 @@ window.addEventListener('load', () => {
         elements = [mainContainer];
       }
 
-      elements.forEach(function(element,index){
-        if (CoCreateUtils) {
-          if (CoCreateInit.getInitialized(element)) {
+      elements.forEach(function(element, index){
+        let template = element.closest('.template');
+        if (template) {
+          return;
+        }
+        if (CoCreateObserver) {
+          if (CoCreate.observer.getInitialized(element)) {
       			return;
       		}
         }
@@ -134,8 +142,8 @@ window.addEventListener('load', () => {
           _this._initYSocket(element, editor, true)
           _this.initEvent(element, editor)
           
-          if (CoCreateUtils) {
-            CoCreateInit.setInitialized(element)
+          if (CoCreateObserver) {
+            CoCreate.observer.setInitialized(element)
           }
           _this.elements.push(element)
           
@@ -164,7 +172,7 @@ window.addEventListener('load', () => {
       //     }
     		// 	if (data['collection'] == collection && data['document_id'] == id && (name in data.data)) {
     		// 	 // _this.sendChangeData(input, data['data'][name], 0, data['data'][name].length, false);
-    		// 	  CoCreate.replaceDataCrdt({
+    		// 	  CoCreate.crdt.replaceText({
     		// 	    collection: collection,
     		// 	    document_id: id,
     		// 	    name: name,
@@ -179,11 +187,12 @@ window.addEventListener('load', () => {
     initEvent(element, editor) {
       var charWidth = editor.defaultCharWidth(), basePadding = 4;
       var _this = this;
-      editor.on("renderLine", function(cm, line, elt) {
-        var off = CodeMirror.countColumn(line.text, null, cm.getOption("tabSize")) * charWidth;
-        elt.style.textIndent = "-" + off + "px";
-        elt.style.paddingLeft = (basePadding + off) + "px";
-      });
+      //comment by jean mendoza 05-11-2020, codemirror no tab in editor
+      // editor.on("renderLine", function(cm, line, elt) {
+      //   var off = CodeMirror.countColumn(line.text, null, cm.getOption("tabSize")) * charWidth;
+      //   elt.style.textIndent = "-" + off + "px";
+      //   elt.style.paddingLeft = (basePadding + off) + "px";
+      // });
       
       editor.refresh();
       
@@ -191,7 +200,7 @@ window.addEventListener('load', () => {
         var value = codemirror.getValue();
         var element = codemirror.getOption('element');
         var id = element.getAttribute('id') || '';
-        
+
         _this.requestDocumentID(element)
         
         if (!id) return;
@@ -247,7 +256,7 @@ window.addEventListener('load', () => {
       const document_id = element.getAttribute('data-document_id');
       const realtime = element.getAttribute('data-realtime') != "false";
       if (!document_id && realtime) {
-        CoCreateDocument.requestDocumentId(element)
+        CoCreate.document_id.request(element)
         element.setAttribute('data-document_id', 'pending');
       }
     }
@@ -257,7 +266,7 @@ window.addEventListener('load', () => {
       const document_id = element.getAttribute('data-document_id')
       const name = element.getAttribute('name')
 
-      CoCreate.replaceDataCrdt({
+      CoCreate.crdt.replaceText({
         collection, document_id, name, value,
         update_crud: true
       })
@@ -274,12 +283,32 @@ window.addEventListener('load', () => {
   /**
   * Initialization all OBJS with class .codemirror
   */
-  obj_cocreatecodemirror.init()
 
   // @ts-ignore
   window.CoCreateCodemirror = obj_cocreatecodemirror
   
   //. register init function
-  CoCreateInit.registerModules('CoCreateCodemirror', CoCreateCodemirror, CoCreateCodemirror._init);
+  CoCreateCodemirror.init();
+
+  if (CoCreateObserver) {
+    CoCreate.observer.add({ 
+    	name: 'CoCreateCodemirror', 
+    	observe: ['subtree', 'childList'],
+    	include: '.codemirror', 
+    	callback: function(mutation) {
+    		CoCreateCodemirror.initElement(mutation.target)
+    	}
+    })
+  }
+  
+  if (CoCreate.form) {
+    CoCreate.form.init({
+      name: 'Codemirror',
+      selector: '.codemirror',
+      callback: function(el) {
+        
+      }
+    })
+  }
 
 });//end window LOAD
