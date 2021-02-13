@@ -10,7 +10,6 @@ module.exports = {
   output: {
     globalObject: 'self',
     path: path.resolve(__dirname, './dist/'),
-    //filename: '[name].bundle.js',
     //filename: 'CoCreate-codemirror.js',
     filename: '[name].js',
     publicPath: '/codemirror/dist/'
