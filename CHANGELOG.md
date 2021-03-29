@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.0...v1.0.1) (2021-03-29)
+
+
+### Bug Fixes
+
+* Package Paths ([10b2e7f](https://github.com/CoCreate-app/CoCreate-codemirror/commit/10b2e7f48acbcfd39c76a08c242080f18759056e))
+
 # 1.0.0 (2021-03-29)
 
 
