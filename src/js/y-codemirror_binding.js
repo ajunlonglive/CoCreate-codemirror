@@ -207,6 +207,7 @@ const updateRemoteSelection = (y, cm, type, cursors, clientId, awareness) => {
 //   //console.log(currentAnchor, currentHead, newAnchor, newHead);
 // }
 
+
 const codemirrorCursorActivity = (y, cm, type, awareness) => {
   const aw = awareness.getLocalState()
   if (!cm.hasFocus() || aw == null || !cm.display.wrapper.ownerDocument.hasFocus()) {

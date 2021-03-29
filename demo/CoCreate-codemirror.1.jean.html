@@ -65,6 +65,32 @@
         }
 
       </style>
+    <style>
+        .monaco {
+            width:100%;
+            height:600px;
+            border:1px solid #ccc;
+        }
+        .yRemoteSelection {
+            background-color: rgb(250, 129, 0, .5)
+        }
+        .yRemoteSelectionHead {
+            position: absolute;
+            border-left: orange solid 2px;
+            border-top: orange solid 2px;
+            border-bottom: orange solid 2px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .yRemoteSelectionHead::after {
+            position: absolute;
+            content: ' ';
+            border: 3px solid orange;
+            border-radius: 4px;
+            left: -4px;
+            top: -5px;
+        }
+    </style>
   </head>
   
   <body>
@@ -78,25 +104,22 @@
             class="codemirror min-width:300px">
         </div>
         -->
-        <div class="postion_relative">
-            <h3  data-collection="test" 
-                data-document_id="5ff539e6421c2c14653a1b92" 
-                name="nameOtro">
-            </h3>
-            <textarea  data-collection="test" 
-                data-document_id="5ff539e6421c2c14653a1b92" 
-                name="nameOtro">
-            </textarea>
-            </br>
-            <input data-collection="test" 
-                data-document_id="5ff539e6421c2c14653a1b92" 
-                name="nameOtro"  >
-        </br>
+        <!--<form>  -->
+
+        <div class="postion:relative margin:50px">
+            
+            <h3 data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro2" contenteditable></h3>
+            <textarea  data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro2" class=""></textarea>
+            <!--</br>-->
+            <!--<input data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro">-->
         </div> 
-            <!--<div data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro" class="quill" ></div>-->
+         <!--<form> -->
+        <!--<div data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro1" class="quill"></div>-->
         ----------
-            <div data-collection="test" data-document_id="5ff539e6421c2c14653a1b92"  name="nameOtro" class="codemirror">
-        
+        <!--<div data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro1" class="codemirror"></div>-->
+       
+        <!--<div data-collection="test" data-document_id="5ff539e6421c2c14653a1b92" name="nameOtro1" class="monaco"></div>-->
+        <!--</form>  -->
         <!--<div -->
         <!--    data-collection="twilio" -->
         <!--    name="twiml347"  -->
@@ -129,14 +152,10 @@
       }
     </script>
   
-    
-    <!--<script type="text/javascript" src="https://server.cocreate.app/js/CoCreate.min.js" async></script>-->
-    <script src="https://server.cocreate.app/js/CoCreate.min.js"></script>
-    <!--<script defer src="https://server.cocreate.app/CoCreate-components/CoCreate-cursors/dist/CoCreate-cursors.js"></script>-->
-    <!--<script src="https://server.cocreate.app/CoCreate-components/CoCreate-crdt/dist/CoCreate-crdt.js"></script>-->
-    <!--<script src="https://server.cocreate.app/CoCreate-components/CoCreate-y/y-client/dist/CoCreate-crdt.js"></script>-->
-    
-    <script type="text/javascript" src="../dist/CoCreate-codemirror.js" async></script>
-    <script type="text/javascript" src="../../CoCreate-quill/dist/CoCreate-quill.js" async></script>
-  </body>
+    <!--<script src="https://server.cocreate.app/CoCreateJS/dist/CoCreate.js"></script>-->
+
+        <!--<script type="text/javascript" src="../dist/CoCreate-codemirror.js" async></script>-->
+        <!--<script type="text/javascript" src="../../CoCreate-quill/dist/CoCreate-quill.js" async></script>-->
+        <!--<script type="text/javascript" src="https://server.cocreate.app/CoCreate-plugins/CoCreate-monaco/dist/monaco.bundle.js"></script>-->
+    </body>
 </html>
