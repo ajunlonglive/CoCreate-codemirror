@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.3...v1.0.4) (2021-03-30)
+
+
+### Bug Fixes
+
+* import from npm ([7064040](https://github.com/CoCreate-app/CoCreate-codemirror/commit/706404085f4f76a324d3fa43e8bd118616cfaf75))
+
 ## [1.0.3](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.2...v1.0.3) (2021-03-30)
 
 
