@@ -5,7 +5,7 @@ import * as Y from 'yjs'
 import { CodeMirrorBinding } from './js/y-codemirror'  
 import crdt from '@cocreate/crdt'
 import { UserCursor } from '@cocreate/crdt/src/utils/cursor/userCursor_class'
-import { socket, utils, crud} from '@cocreate/cocreatejs'
+import crud from '@cocreate/crud'
 import CoCreateForm from '@cocreate/form'
 import CoCreateObserver from '@cocreate/observer'
 
