@@ -3,11 +3,11 @@
 import CodeMirror from 'codemirror'
 import * as Y from 'yjs'
 import { CodeMirrorBinding } from './js/y-codemirror'  
-import crdt from '@cocreate/crdt/src'
+import crdt from '@cocreate/crdt'
 import { UserCursor } from '@cocreate/crdt/src/utils/cursor/userCursor_class'
 import { socket, utils, crud} from '@cocreate/cocreatejs'
-import CoCreateForm from '@cocreate/form/src'
-import CoCreateObserver from '@cocreate/observer/src'
+import CoCreateForm from '@cocreate/form'
+import CoCreateObserver from '@cocreate/observer'
 
 import 'codemirror/mode/htmlmixed/htmlmixed.js'
 //Floding CODE
