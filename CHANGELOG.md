@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.2...v1.0.3) (2021-03-30)
+
+
+### Bug Fixes
+
+* import paths using npm ([bbe9905](https://github.com/CoCreate-app/CoCreate-codemirror/commit/bbe9905e214e573ee6ced886fc9d310ab2e16677))
+
 ## [1.0.2](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.1...v1.0.2) (2021-03-30)
 
 
