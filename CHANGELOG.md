@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.4...v1.0.5) (2021-03-31)
+
+
+### Bug Fixes
+
+* remove yarn.lock and package-lock.json ([58a68d6](https://github.com/CoCreate-app/CoCreate-codemirror/commit/58a68d64b094e0935ac78baa7eb09efd26f9de14))
+
 ## [1.0.4](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.3...v1.0.4) (2021-03-30)
 
 
