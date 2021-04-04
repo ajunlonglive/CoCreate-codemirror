@@ -5,7 +5,7 @@ import * as Y from 'yjs'
 import { CodeMirrorBinding } from './js/y-codemirror'  
 import crdt from '@cocreate/crdt'
 import { UserCursor } from '@cocreate/crdt/src/utils/cursor/userCursor_class'
-import crud from '@cocreate/crud'
+import crud from '@cocreate/crud-client'
 import CoCreateForm from '@cocreate/form'
 import CoCreateObserver from '@cocreate/observer'
 
@@ -70,23 +70,17 @@ window.addEventListener('load', () => {
     }
     
     _initYSocket(element, editor, isInit) {
-      let collection = element.getAttribute('data-collection')
-      let name = element.getAttribute('name')
-      let document_id = element.getAttribute('data-document_id')
-      const realtime = element.getAttribute('data-realtime') != "false";
-      
+      const { collection, name, document_id } = crud.getAttr(element)
+      const is_realtime = crud.isRealtimeAttr(element)
+
       if (collection && name && document_id) {
         const id = crdt.generateID(config.organization_Id, collection, document_id, name);
         crdt.createDoc(id, element);
         
         let provider = crdt.getProvider(id)
-        console.log(" Provider ",provider)
         let doc_type = crdt.getType(id)
-        
-        let readValue = element.getAttribute('data-read_value') != "false";
-        
-        
-        let binding = this._createBinding(doc_type, editor, provider,realtime)
+
+        let binding = this._createBinding(doc_type, editor, provider, is_realtime)
         /*if (realtime) {
           let binding = this._createBinding(doc_type, editor, provider)
           // this.adapterDB(id, binding.awareness.doc);
@@ -120,11 +114,10 @@ window.addEventListener('load', () => {
     }
     
     initElement(container){
-      const _this = this;
-      
+      const self = this;
       const mainContainer = container || document;
       let elements = mainContainer.querySelectorAll('.codemirror')
-      console.log(mainContainer);
+
       if (elements.length == 0 && mainContainer.classList && mainContainer.classList.contains('codemirror')) {
         elements = [mainContainer];
       }
@@ -134,27 +127,19 @@ window.addEventListener('load', () => {
         if (template) {
           return;
         }
-        if (CoCreateObserver) {
-          if (CoCreateObserver.getInitialized(element)) {
-      			return;
-      		}
-        }
-        
+        if (CoCreateObserver.getInitialized(element)) {
+    			return;
+    		}
+
         try{  
           
-          let editor = _this._createCodeMirror(element);
-          
-          _this._initYSocket(element, editor, true)
-          _this.initEvent(element, editor)
-          
-          if (CoCreateObserver) {
-            CoCreateObserver.setInitialized(element)
-          }
-          _this.elements.push(element)
+          let editor = self._createCodeMirror(element);
+          self._initYSocket(element, editor, true)
+          self.initEvent(element, editor)
+          CoCreateObserver.setInitialized(element)
+          self.elements.push(element)
           
         }catch(error) {
-          
-          console.error(error);    
           return false
         }
       });//end forEach
@@ -259,7 +244,7 @@ window.addEventListener('load', () => {
     
     requestDocumentID(element) {
       const document_id = element.getAttribute('data-document_id');
-      const realtime = element.getAttribute('data-realtime') != "false";
+      const realtime = crud.isRealtimeAttr(element);
       if (!document_id && realtime) {
         CoCreateForm.request({element})
         element.setAttribute('data-document_id', 'pending');
@@ -267,9 +252,7 @@ window.addEventListener('load', () => {
     }
     
     saveDataIntoDB(element, value) {
-      const collection = element.getAttribute('data-collection')
-      const document_id = element.getAttribute('data-document_id')
-      const name = element.getAttribute('name')
+      const { collection, document_id, name } = crud.getAttr(element)
 
       crud.updateDocument({
         collection, document_id, 
