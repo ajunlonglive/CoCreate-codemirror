@@ -1,0 +1,73 @@
+{
+  "name": "@cocreate/codemirror",
+  "version": "1.0.6",
+  "description": "A simple codemirror component in vanilla javascript. Easily configured using HTML5 data-attributes and/or JavaScript API.",
+  "keywords": [
+    "codemirror",
+    "cocreate",
+    "low-code-framework",
+    "no-code-framework",
+    "cocreatejs",
+    "cocreatejs-component",
+    "cocreate-framework",
+    "no-code",
+    "low-code",
+    "collaborative-framework",
+    "realtime",
+    "realtime-framework",
+    "collaboration",
+    "shared-editing",
+    "html5-framework",
+    "javascript-framework"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "dist": "npm run clean && rollup -c && tsc",
+    "watch": "rollup -wc",
+    "test": "npm run dist && node test/test.node.cjs",
+    "test-extensive": "npm run dist && node test/test.node.cjs --production --repetition-time 10000",
+    "lint": "standard && tsc",
+    "preversion": "npm run lint && npm run test-extensive && npm run dist",
+    "debug": "concurrently 'http-server -o test.html' 'npm run watch'",
+    "start": "concurrently 'http-server -o demo/index.html' 'npm run watch'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoCreate-app/CoCreate-codemirror.git"
+  },
+  "author": "CoCreate LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CoCreate-app/CoCreate-codemirror/issues"
+  },
+  "homepage": "https://cocreate.app/docs/codemirror",
+  "funding": {
+    "type": "GitHub Sponsors ❤",
+    "url": "https://github.com/sponsors/CoCreate-app"
+  },
+  "peerDependencies": {
+    "codemirror": "^5.52.2",
+    "yjs": "^13.0.0"
+  },
+  "dependencies": {
+    "lib0": "^0.2.35"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.1.1",
+    "@types/codemirror": "0.0.91",
+    "codemirror": "^5.59.2",
+    "concurrently": "^5.3.0",
+    "http-server": "^0.12.3",
+    "jsdom": "^16.4.0",
+    "rollup": "^2.38.4",
+    "standard": "^14.3.4",
+    "typescript": "^3.9.7",
+    "y-webrtc": "^10.1.8",
+    "yjs": "^13.4.14"
+  }
+}

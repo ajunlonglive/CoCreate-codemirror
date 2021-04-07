@@ -9,7 +9,7 @@ import * as func from 'lib0/function.js'
 import * as eventloop from 'lib0/eventloop.js'
 import * as diff from 'lib0/diff.js'
 import CodeMirror from 'codemirror'
-import * as Ys from './RelativePosition.js'
+// import * as Ys from './RelativePosition.js'
 
 // import {getState, followRedone, Item} from 'yjs/src/internals.js'
 
@@ -258,11 +258,11 @@ const updateRemoteSelection = (y, cm, type, cursors, clientId, awareness) => {
   if (cursor == null || cursor.anchor == null || cursor.head == null) {
     return
   }
-  //const anchor = Y.createAbsolutePositionFromRelativePosition(JSON.parse(cursor.anchor), y)
+  const anchor = Y.createAbsolutePositionFromRelativePosition(JSON.parse(cursor.anchor), y)
 
-  const anchor = Ys.createAbsolutePositionFromRelativePosition(Y.createRelativePositionFromJSON(cursor.anchor), y)
-  //const head = Y.createAbsolutePositionFromRelativePosition(JSON.parse(cursor.head), y)
-  const head = Ys.createAbsolutePositionFromRelativePosition(Y.createRelativePositionFromJSON(cursor.head), y)
+  // const anchor = Ys.createAbsolutePositionFromRelativePosition(Y.createRelativePositionFromJSON(cursor.anchor), y)
+  const head = Y.createAbsolutePositionFromRelativePosition(JSON.parse(cursor.head), y)
+  // const head = Ys.createAbsolutePositionFromRelativePosition(Y.createRelativePositionFromJSON(cursor.head), y)
 
   /*console.log("TYPE comparation ",anchor.type == type)
   console.log("TYPE  ",type)
