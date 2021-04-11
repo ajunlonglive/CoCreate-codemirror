@@ -10,8 +10,8 @@ import {
   ContentType,
   followRedone,
   ID, Doc, AbstractType // eslint-disable-line
+//} from './internals.js'
 } from 'yjs/src/internals.js'
-
 import * as encoding from 'lib0/encoding.js'
 import * as decoding from 'lib0/decoding.js'
 import * as error from 'lib0/error.js'

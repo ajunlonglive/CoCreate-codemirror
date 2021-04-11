@@ -4,7 +4,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 let isProduction = process.env.NODE_ENV === "production"
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
+
+
 module.exports = {
+    resolve: {
+    modules: ['node_modules'],
+  },
   entry: {
     "CoCreate-codemirror": "./src/index.js",
   },
