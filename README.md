@@ -9,7 +9,7 @@ A simple codemirror component in vanilla javascript. Easily configured using HTM
 
 ![CoCreate-codemirror](https://cdn.cocreate.app/docs/CoCreate-codemirror.gif)
 
-## [Docs & Demo](https://cocreate.app/docs/clone)
+## [Docs & Demo](https://cocreate.app/docs/codemirror)
 
 For a complete guide and working demo refer to the [doumentation](https://cocreate.app/docs/codemirror)
 
