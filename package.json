@@ -68,6 +68,6 @@
     "@cocreate/form": "^1.0.5",
     "@cocreate/observer": "^1.0.1",
     "lib0": "^0.2.41",
-    "mini-css-extract-plugin": "^1.4.0"
+    "mini-css-extract-plugin": "^1.5.0"
   }
 }
