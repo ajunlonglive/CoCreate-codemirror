@@ -1,3 +1,11 @@
+## [1.0.9](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.8...v1.0.9) (2021-04-19)
+
+
+### Bug Fixes
+
+* ci and build process ([f4a749e](https://github.com/CoCreate-app/CoCreate-codemirror/commit/f4a749e296ed6ca15788dc0f5033be86e11cddea))
+* npm publish and cdn deployment ([51339cf](https://github.com/CoCreate-app/CoCreate-codemirror/commit/51339cf2ae5b9e02e3abb9f54e499e5dfe09554a))
+
 ## [1.0.8](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.7...v1.0.8) (2021-04-14)
 
 
