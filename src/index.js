@@ -10,7 +10,10 @@ import CoCreateForm from '@cocreate/form'
 import CoCreateObserver from '@cocreate/observer'
 
 import 'codemirror/mode/htmlmixed/htmlmixed.js'
-//Floding CODE
+import 'codemirror/lib/codemirror.css';
+import './css/index.css';
+
+//Folding CODE
 import 'codemirror/addon/fold/foldcode.js'
 import 'codemirror/addon/fold/foldgutter.js'
 import 'codemirror/addon/fold/brace-fold.js'
