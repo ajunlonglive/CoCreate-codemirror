@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.10...v1.0.11) (2021-04-23)
+
+
+### Bug Fixes
+
+* readme and documentation. Removed securitykeys ([2e94495](https://github.com/CoCreate-app/CoCreate-codemirror/commit/2e94495d2524f36d47df77925b70b197a2206142))
+
 ## [1.0.10](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.9...v1.0.10) (2021-04-19)
 
 
