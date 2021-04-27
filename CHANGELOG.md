@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.11...v1.0.12) (2021-04-27)
+
+
+### Bug Fixes
+
+* Update to readme, demo, added cdn scripts ([86d73ef](https://github.com/CoCreate-app/CoCreate-codemirror/commit/86d73ef440d26bb7ef0c9f17afbe74c96711a5a8))
+
 ## [1.0.11](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.10...v1.0.11) (2021-04-23)
 
 
