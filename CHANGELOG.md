@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.12...v1.0.13) (2021-04-27)
+
+
+### Bug Fixes
+
+* add host in docs ([8e8b898](https://github.com/CoCreate-app/CoCreate-codemirror/commit/8e8b89815e02a92946bfad777b6bd5ee0bbc6a4a))
+
 ## [1.0.12](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.11...v1.0.12) (2021-04-27)
 
 
