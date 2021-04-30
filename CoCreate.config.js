@@ -10,7 +10,7 @@ module.exports = {
             "path": "./docs/index.html",
             "collection": "files",
             "document_id": "602745015e697f4f26a98a5b",
-            "key": "html",
+            "key": "src",
             "data":{
                 "name": "codemirror Doc",
                 "domains": ["cocreate.app", "server.cocreate.app", "ws.cocreate.app"],
