@@ -1,3 +1,10 @@
+## [1.0.15](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.14...v1.0.15) (2021-05-11)
+
+
+### Bug Fixes
+
+* compile error ([053599c](https://github.com/CoCreate-app/CoCreate-codemirror/commit/053599c7f9c433698ec486e3483ae4badfa6bcb8))
+
 ## [1.0.14](https://github.com/CoCreate-app/CoCreate-codemirror/compare/v1.0.13...v1.0.14) (2021-05-08)
 
 
